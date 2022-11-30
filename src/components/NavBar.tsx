@@ -1,10 +1,26 @@
+import { getAuth, signOut } from "firebase/auth";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useAppSelector } from "../app/hooks";
-import { LogOut } from "../utils/LogOut";
+import { auth } from "..";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { userLoggedOut } from "../features/user-slice";
 
 export function NavBar() {
   const userId = useAppSelector((state) => state.user.id);
-  console.log(userId);
+  const dispatch = useAppDispatch();
+
+  function LogOut() {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("Sign-out successful.");
+        dispatch(userLoggedOut());
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  }
+
   return (
     <Navbar variant="light" fixed="top">
       <Container>
@@ -34,15 +50,16 @@ export function NavBar() {
           </Nav>
           <Nav>
             <NavDropdown title="Account" id="collasible-nav-dropdown">
-              {userId === undefined && (
+              {userId === undefined ? (
                 <>
                   <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                  <NavDropdown.Item href="/register">Register</NavDropdown.Item>  
+                  <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                 </>
-              )}
-              {userId !== undefined && (
+              ) : null}
+              {userId !== undefined ? (
                 <>
                   <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     href="#"
@@ -52,7 +69,7 @@ export function NavBar() {
                     Log Out
                   </NavDropdown.Item>
                 </>
-              )}
+              ) : null}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

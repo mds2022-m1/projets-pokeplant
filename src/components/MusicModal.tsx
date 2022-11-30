@@ -51,7 +51,7 @@ export function MusicModal() {
       </audio>
 
       <video muted loop id="videobg" ref={videoRef}>
-        <source src="pokemonbg.mp4" type="video/mp4"/>
+        <source src="pokemonbg.mp4" type="video/mp4" />
       </video>
     </>
   );

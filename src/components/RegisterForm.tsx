@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Button from "react-bootstrap/Button";
-import { db } from "..";
+import { auth, db } from "..";
 import {
   getAuth,
   signInWithPopup,
@@ -28,11 +28,8 @@ export function RegisterForm() {
   const matchSpan = useRef<HTMLSpanElement>(null);
   const username = useRef<HTMLInputElement>(null);
 
-  const auth = getAuth();
-
   const signInGoogle = () => {
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
     signInWithPopup(auth, provider)
       .then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -40,17 +37,14 @@ export function RegisterForm() {
         const token = credential?.accessToken;
         // The signed-in user info.
         const user = result.user;
-
-        console.log(user.uid);
-        const docRef = collection(db, "users");
         const userData = {
           username: user.displayName,
           email: user.email,
         };
         await setDoc(doc(db, "users", user.uid), userData);
-        dispatch(userLoggedIn({ id: user.uid, name: username.current?.value }));
-        console.log("Document written with ID: ", docRef.id);
-        console.log(user);
+        dispatch(
+          userLoggedIn({ id: user.uid, name: user.displayName as string, email: user.email as string })
+        );
       })
       .catch((error) => {
         // Handle Errors here.
@@ -81,15 +75,14 @@ export function RegisterForm() {
     ).then(async (userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user.uid);
-      const docRef = collection(db, "users");
       const userData = {
         username: username.current?.value,
         email: email.current?.value,
       };
       await setDoc(doc(db, "users", user.uid), userData);
-      dispatch(userLoggedIn({ id: user.uid, name: username.current?.value }));
-      console.log("Document written with ID: ", docRef.id);
+      dispatch(
+        userLoggedIn({ id: user.uid, name: user.displayName as string, email: user.email as string })
+      );
     });
   };
 
@@ -185,15 +178,12 @@ export function RegisterForm() {
               </span>
             </div>
             <Button variant="primary" onClick={signIn}>
-              Creat your account
+              Create your account
             </Button>
             <hr></hr>
-            <p>Or Login using</p>
+            <p>Or Register using</p>
             <Button variant="outline-secondary" onClick={signInGoogle}>
               <FaGoogle />
-            </Button>
-            <Button variant="outline-dark" onClick={signInGoogle}>
-              <FaGithub></FaGithub>
             </Button>
             <hr></hr>
             <NavLink href="/login" className="text-primary">
@@ -205,19 +195,3 @@ export function RegisterForm() {
     </>
   );
 }
-
-// function AuthenticateMailPassw() {
-
-// const auth = getAuth();
-// createUserWithEmailAndPassword(auth, props.email, props.password)
-//   .then((userCredential) => {
-//     // Signed in
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
-// }

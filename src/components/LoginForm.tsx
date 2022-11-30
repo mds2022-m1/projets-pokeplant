@@ -8,29 +8,23 @@ import {
 } from "react-bootstrap";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  getRedirectResult,
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  setDoc,
-  getFirestore,
-} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { db } from "..";
-import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { auth, db } from "..";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import { useAppDispatch } from "../app/hooks";
+import { userLoggedIn } from "../features/user-slice";
+import { userLogIn } from "../features/usercredential-slice";
 
 export function LoginForm() {
+  const dispatch = useAppDispatch();
   const password = useRef<HTMLInputElement>(null);
   const email = useRef<HTMLInputElement>(null);
-
-  const auth = getAuth();
+  
   const signIn = () => {
     if (!email.current?.value) {
       return;
@@ -47,7 +41,9 @@ export function LoginForm() {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        
+        dispatch( 
+          userLoggedIn({ id: user.uid, name: user.displayName as string, email: user.email as string })
+        );
         // ...
       })
       .catch((error) => {
@@ -58,7 +54,6 @@ export function LoginForm() {
 
   const signInGoogle = () => {
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
     signInWithPopup(auth, provider)
       .then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -66,18 +61,17 @@ export function LoginForm() {
         const token = credential?.accessToken;
         // The signed-in user info.
         const user = result.user;
-        
-        console.log(user.uid);
-        const docRef = collection(db, "users");
         const userData = {
           username: user.displayName,
           email: user.email,
         };
-        await setDoc(doc(db, "users", user.uid),userData);
-
-        console.log("Document written with ID: ", docRef.id);
-        console.log(user);
-      }).catch((error) => {
+        console.log(credential);
+        await setDoc(doc(db, "users", user.uid), userData);
+        dispatch(
+          userLoggedIn({ id: user.uid, name: user.displayName as string, email: user.email as string })
+        );
+      })
+      .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -87,7 +81,7 @@ export function LoginForm() {
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
-  }
+  };
 
   return (
     <>
@@ -131,35 +125,21 @@ export function LoginForm() {
             <Button variant="primary" onClick={signIn}>
               Login
             </Button>
+            <NavLink href="/register" className="text-primary mt-3">
+              Forgot password? Click Here!
+            </NavLink>
             <hr></hr>
             <p>Or Log In using</p>
             <Button variant="outline-secondary" onClick={signInGoogle}>
               <FaGoogle />
             </Button>
-            <Button variant="outline-dark" onClick={signInGoogle}>
-              <FaGithub></FaGithub>
-            </Button>
             <hr></hr>
-            <NavLink href="/register" className="text-primary">No Account? Create one here!</NavLink>
+            <NavLink href="/register" className="text-primary">
+              No Account? Create one here!
+            </NavLink>
           </Card.Body>
         </Card>
       </Container>
     </>
   );
 }
-
-// function AuthenticateMailPassw() {
-
-// const auth = getAuth();
-// createUserWithEmailAndPassword(auth, props.email, props.password)
-//   .then((userCredential) => {
-//     // Signed in
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
-// }
