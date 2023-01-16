@@ -15,8 +15,7 @@ export function Capture() {
   const userId = useAppSelector((state) => state.user.id);
   return (
     <>
-      {userId !== undefined && <AddPokePlant></AddPokePlant>}
-      {userId === undefined && <NotFound></NotFound>}
+      {<AddPokePlant></AddPokePlant>}
     </>
   );
 }
