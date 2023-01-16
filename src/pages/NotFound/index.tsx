@@ -1,4 +1,8 @@
+import { useAppSelector } from "../../app/hooks";
+import { RouterPath } from "../../app/router-path";
+
 export function NotFound() {
+  const session = useAppSelector((state) => state.session.session);
   return (
     <>
       <div
@@ -18,9 +22,17 @@ export function NotFound() {
           <p className="lead text-light">
             The page you’re looking for doesn’t exist.
           </p>
+          {!session ? (
+            <p className="lead text-light">Maybe you want to login first?</p>
+          ) : null}
           <a href="/" className="btn btn-primary">
             Go Home
           </a>
+          {!session ? (
+            <a href={RouterPath.login} className="mx-3 btn btn-primary">
+              Login
+            </a>
+          ) : null}
         </div>
       </div>
     </>
