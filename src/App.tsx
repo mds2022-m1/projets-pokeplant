@@ -13,12 +13,15 @@ import { Home } from "./pages/Home";
 import { Map } from "./pages/Map";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
-import { Register } from "./pages/Register";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Capture } from "./pages/Capture";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import Account from "./pages/Account";
+import { MagicInitializingComponent } from "./components/DispatchComponent";
+import { RouterPath } from "./app/router-path";
+import { PasswordRecoveryPage } from "./pages/PasswordRecovery";
 
 function App() {
   return (
@@ -32,16 +35,19 @@ function App() {
             backgroundSize: "cover",
           }}
         >
+          <MagicInitializingComponent></MagicInitializingComponent>
           <NavBar></NavBar>
           <BrowserRouter>
             <Routes>
               <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/map" element={<Map />} />
-              <Route path="/pokedex" />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="capture" element={<Capture />} />
+              <Route path={RouterPath.home} element={<Home />} />
+              <Route path={RouterPath.map} element={<Map />} />
+              <Route path={RouterPath.pokedex} element={<NotFound />} />
+              <Route path={RouterPath.login} element={<Login />} />
+              <Route path={RouterPath.capture} element={<Capture />} />
+              <Route path={RouterPath.account} element={<Account />} />
+              <Route path={RouterPath.profile} element={<Account/>} />
+              <Route path={RouterPath.passwordRecovery} element={<PasswordRecoveryPage />} />
             </Routes>
           </BrowserRouter>
         </div>
