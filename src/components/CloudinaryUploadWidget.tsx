@@ -22,7 +22,7 @@ class CloudinaryUploadWidget extends Component {
         uploadPreset: uploadPreset,
         // cropping: true, //add a cropping step
         // showAdvancedOptions: true,  //add advanced options (public_id and tag)
-        // sources: [ "local", "camera"], // restrict the upload sources to URL and local files
+        sources: [ "local", "camera"], // restrict the upload sources to URL and local files
         // multiple: false,  //restrict upload to a single file
         // folder: "user_images", //upload files to the specified folder
         // tags: ["users", "profile"], //add the given tags to the uploaded files

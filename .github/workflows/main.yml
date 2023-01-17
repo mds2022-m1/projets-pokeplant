@@ -34,8 +34,6 @@ jobs:
           npm install
           echo Build to /build
           npm run build
-          cp build/index.html build/404.html
-          echo "pokeplant-demo.fr" > build/CNAME
       - name: Deploy /build to pokeplant public repo
         uses: s0/git-publish-subdir-action@master
         env:
