@@ -1,8 +1,10 @@
 import { Button, Card } from "react-bootstrap";
 
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
+import { useAppSelector } from "../app/hooks";
 
 export function AddPokePlant() {
+  const session = useAppSelector((state) => state.session.session)
   return (
     <div className="App">
       <h3>Cloudinary Upload Widget Example</h3>
