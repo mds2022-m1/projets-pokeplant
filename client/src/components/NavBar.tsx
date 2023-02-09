@@ -31,7 +31,7 @@ export function NavBar() {
                 <NavDropdown.Item href="/battle">Battle</NavDropdown.Item>
                 <NavDropdown.Item href="/pokedex">Pokedex</NavDropdown.Item>
                 <NavDropdown.Item href="/pokeplants">
-                  Pokeplants
+                  My garden
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/teams">Teams</NavDropdown.Item>
               </NavDropdown>

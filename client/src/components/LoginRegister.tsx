@@ -11,6 +11,7 @@ import {
   Alert,
   FormSelect,
 } from "react-bootstrap";
+import { FcGoogle } from "react-icons/fc";
 import { useForm, FieldValues } from "react-hook-form";
 import { RouterPath } from "../app/router-path";
 
@@ -195,7 +196,6 @@ export function LoginRegister() {
                 />
               </FloatingLabel>
             ) : null}
-
             {registerConfirm ? (
               <Alert variant="success">
                 <strong>Success!</strong> Please check your email to confirm
@@ -217,6 +217,17 @@ export function LoginRegister() {
                 : mode === "forgotPassword"
                 ? "Reset Password"
                 : null}
+            </Button>
+            <hr></hr>
+            <h5>Or connect using : </h5>
+            <Button
+              variant="outline-primary"
+              className="mx-2"
+              onClick={() => {
+                supabase.auth.signInWithOAuth({ provider: "google" });
+              }}
+            >
+              <FcGoogle />
             </Button>
             <hr></hr>
             {mode === "register" ? (
