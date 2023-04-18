@@ -8,4 +8,6 @@ export const RouterPath = {
     map: '/map',
     pokedex: '/pokedex',
     capture: '/capture',
+    garden: '/garden',
+    battle: '/battle',
 };
