@@ -4,6 +4,7 @@ import { supabase } from "../app/supabaseClient";
 import { userCreated } from "../features/user-slice";
 import { passwordRecoveryUpdated } from "../features/session-slice";
 import { FaUserCircle } from "react-icons/fa";
+import { RouterPath } from "../app/router-path";
 
 export function NavBar() {
   const dispatch = useAppDispatch();
@@ -27,10 +28,16 @@ export function NavBar() {
             <Nav.Link href="/map">Map</Nav.Link>
             {session ? (
               <NavDropdown title="Pokeplants" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="/capture">Capture</NavDropdown.Item>
-                <NavDropdown.Item href="/battle">Battle</NavDropdown.Item>
-                <NavDropdown.Item href="/pokedex">Pokedex</NavDropdown.Item>
-                <NavDropdown.Item href="/pokeplants">
+                <NavDropdown.Item href={RouterPath.capture}>
+                  Capture
+                </NavDropdown.Item>
+                <NavDropdown.Item href={RouterPath.battle}>
+                  Battle
+                </NavDropdown.Item>
+                <NavDropdown.Item href={RouterPath.pokedex}>
+                  Pokedex
+                </NavDropdown.Item>
+                <NavDropdown.Item href={RouterPath.garden}>
                   My garden
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/teams">Teams</NavDropdown.Item>
