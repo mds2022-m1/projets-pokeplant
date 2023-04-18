@@ -1,7 +1,7 @@
-import React, { Component } from "react";
 import { supabase } from "../app/supabaseClient";
 import { useAppSelector } from "../app/hooks";
 import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 declare global {
   interface Window {
     cloudinary: any;
@@ -13,6 +13,23 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
   const [plantName, setPlantName] = useState("");
   const userId = useAppSelector((state) => state.user.id);
   console.log(userId);
+
+    const [latitude, setLatitude] = useState<number | null>(null);
+    const [longitude, setLongitude] = useState<number | null>(null);
+  
+    useEffect(() => {
+      // Get the current location coordinates using the Geolocation API
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    }, []);
+  
 
   useEffect(() => {
     const myWidget = window.cloudinary.createUploadWidget(
@@ -43,15 +60,15 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
               }
 
               if (userId) {
-                console.log("session.user.id");
 
-                //TODO il que je propage session jusqu'ici de façon à pouvoir faire un insert en étant co
-                const { error } = await supabase.from("pokePlant").insert({
-                  name: data.bestMatch,
-                  owner: userId,
-                  image: result.info.secure_url,
-                  description: "Une plante de test",
-                  type: "Feu",
+                console.log(latitude);
+                console.log(longitude);
+                const bestMatch = data.bestMatch;
+                const imageUrl = result.info.secure_url;
+
+                await supabase.rpc('insert_pokeplant', {
+                  name: bestMatch, // Nom de la plante
+                  image: imageUrl,
                 });
               }
             });
@@ -70,7 +87,7 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
         false
       );
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cloudName, uploadPreset, userId]);
 
   return { imageUrl, plantName };
@@ -84,11 +101,13 @@ function CloudinaryUploadWidget() {
 
   return (
     <>
-      <button id="upload_widget" className="cloudinary-button">
-        Upload
-      </button>
+      <Button variant="primary" id="upload_widget" className="cloudinary-button">
+        Initiate Capture!
+      </Button>
     </>
   );
 }
+
+
 
 export default CloudinaryUploadWidget;
