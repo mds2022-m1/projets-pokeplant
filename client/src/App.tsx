@@ -1,8 +1,4 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import firebase from "firebase/compat/app";
-import * as firebaseui from "firebaseui";
 // Import the FirebaseUI authentication UI library.
 import "firebaseui/dist/firebaseui.css";
 // import bootstrap css
@@ -16,42 +12,76 @@ import { NavBar } from "./components/NavBar";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Capture } from "./pages/Capture";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
 import Account from "./pages/Account";
-import { MagicInitializingComponent } from "./components/DispatchComponent";
 import { RouterPath } from "./app/router-path";
 import { PasswordRecoveryPage } from "./pages/PasswordRecovery";
+import Garden from "./pages/Garden";
+import Battle from "./pages/Battle";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { useEffect } from "react";
+import {
+  getSession,
+  setSession,
+  getResetPasswordStatus,
+} from "./actions/session";
+import { getProfileInformation } from "./actions/user-api";
+import { supabase } from "./app/supabaseClient";
+import { passwordRecoveryUpdated } from "./features/session-slice";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const session = useAppSelector((state) => state.session.session);
+
+  // Get session on component mount
+  useEffect(() => {
+    dispatch(getSession());
+    supabase.auth.onAuthStateChange((_event, session) => {
+      dispatch(setSession(session));
+      if (_event === "PASSWORD_RECOVERY") {
+        dispatch(passwordRecoveryUpdated(true));
+        localStorage.setItem("passwordRecovery", "true");
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // If Session changes, fetch user information
+  useEffect(() => {
+    if (session) {
+      dispatch(getProfileInformation(session));
+      dispatch(getResetPasswordStatus());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, dispatch]);
   return (
     <>
-      <Provider store={store}>
-        <div
-          className="App d-flex align-items-center"
-          style={{
-            background:
-              "url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/cad4b52e-f6b1-432f-9035-a5f4853bcf15/d84o6a9-28125268-b60b-4752-a665-acf6b32fbe37.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2NhZDRiNTJlLWY2YjEtNDMyZi05MDM1LWE1ZjQ4NTNiY2YxNVwvZDg0bzZhOS0yODEyNTI2OC1iNjBiLTQ3NTItYTY2NS1hY2Y2YjMyZmJlMzcuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.E8Cz0zggZe_qb5KHtrjPAJJTDCl3YQ7K7GUvLtOBrbg')",
-            backgroundSize: "cover",
-          }}
-        >
-          <MagicInitializingComponent></MagicInitializingComponent>
-          <NavBar></NavBar>
-          <BrowserRouter>
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path={RouterPath.home} element={<Home />} />
-              <Route path={RouterPath.map} element={<Map />} />
+      <NavBar></NavBar>
+      <BrowserRouter>
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path={RouterPath.home} element={<Home />} />
+          <Route path={RouterPath.map} element={<Map />} />
+          <Route path={RouterPath.login} element={<Login />} />
+          <Route
+            path={RouterPath.passwordRecovery}
+            element={<PasswordRecoveryPage />}
+          />
+          {session ? (
+            <>
               <Route path={RouterPath.pokedex} element={<NotFound />} />
-              <Route path={RouterPath.login} element={<Login />} />
+
               <Route path={RouterPath.capture} element={<Capture />} />
               <Route path={RouterPath.account} element={<Account />} />
-              <Route path={RouterPath.profile} element={<Account/>} />
-              <Route path={RouterPath.passwordRecovery} element={<PasswordRecoveryPage />} />
-            </Routes>
-          </BrowserRouter>
-        </div>
-      </Provider>
+              <Route path={RouterPath.profile} element={<Account />} />
+
+              <Route path={RouterPath.garden} element={<Garden />} />
+              <Route path={RouterPath.battle} element={<Battle />} />
+            </>
+          ) : (
+            <></>
+          )}
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
