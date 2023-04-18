@@ -1,4 +1,3 @@
-import { Container } from "react-bootstrap";
 import { LeafletMap } from "../../components/LeafletMap";
 
 export function Map() {
