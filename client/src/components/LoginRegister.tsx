@@ -38,7 +38,7 @@ export function LoginRegister() {
         options: {
           data: {
             user_name: userData.userName,
-            gender: userData.gender
+            gender: userData.gender,
           },
         },
       });
