@@ -2,8 +2,9 @@ import L from "leaflet";
 import { useEffect, useState } from "react";
 import { TileLayer, Marker, Popup } from "react-leaflet";
 import { MapContainer } from "react-leaflet";
-import { supabase } from "../app/supabaseClient";
 import { useAppSelector } from "../app/hooks";
+import graphql from "../graphql/graphql";
+import { pokePlant } from "../app/types";
 export function LeafletMap() {
   const userId = useAppSelector((state) => state.user.id);
   const [isLoading, setIsLoading] = useState(false);
@@ -11,18 +12,59 @@ export function LeafletMap() {
   const [markers, setMarkers] = useState<any[]>([]);
   const [pokeplants, setPokeplants] = useState<any[]>([]);
 
-  async function getAllPokeplants() {
-    setMarkers([]);
+  // Using postgresql function directly
+  // async function getAllPokeplants() {
+  //   setMarkers([]);
+  //   setIsLoading(true);
+  //   try {
+  //     const { data, error } = await supabase.rpc("get_all_pokeplants");
+  //     if (error) {
+  //       console.error(error);
+  //     }
+  //     if (data) {
+  //       console.log(data);
+  //       setPokeplants(data);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+
+  // Using graphql
+  async function getAllPokeplantsGraphql() {
     setIsLoading(true);
+    let pokeplants: pokePlant[] = [];
     try {
-      const { data, error } = await supabase.rpc("get_all_pokeplants");
-      if (error) {
-        console.error(error);
-      }
-      if (data) {
-        console.log(data);
-        setPokeplants(data);
-      }
+      const data = await graphql(`
+        query getAllPokeplant {
+          pokeplantCollection {
+            edges {
+              node {
+                id
+                name
+                latitude
+                longitude
+                hp
+                atk
+                atk_spe
+                def
+                spd
+                base_stats
+                owner
+                moves
+                image
+              }
+            }
+          }
+        }
+      `);
+      data.pokeplantCollection.edges.map((edge: { node: pokePlant}) => {
+        pokeplants.push(edge.node);
+        return pokeplants;
+      });
+      setPokeplants(pokeplants);
     } catch (error) {
       console.error(error);
     } finally {
@@ -66,11 +108,14 @@ export function LeafletMap() {
   }
 
   useEffect(() => {
-    getAllPokeplants();
+    getAllPokeplantsGraphql();
+    //getAllPokeplants();
+    console.log(process.env.REACT_APP_FIREBASE_API_KEY);
   }, []);
 
   useEffect(() => {
     generateMarkers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokeplants, userId]);
 
   return (
