@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../app/supabaseClient";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
+import MovesCenteredModal from "./modalMoves"
 import "./style.css";
 
 export default function Garden() {
   const [pokeplants, setPokeplants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [modalShow, setModalShow] = useState(false);
 
   // Shorten the name of the pokeplant
   const shortenName = (name: string) => {
@@ -93,6 +95,17 @@ export default function Garden() {
                         >
                           Release
                         </Button>
+                        <Button
+                          onClick={() => setModalShow(true)}
+                          variant="info"
+                        >
+                          Move Set
+                        </Button>
+
+      <MovesCenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
                       </Card.Body>
                     </Card>
                   </Col>
