@@ -36,7 +36,7 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
       {
         cloudName: cloudName,
         uploadPreset: uploadPreset,
-        sources: ["local", "camera"],
+        sources: ["camera", "local"],
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
@@ -61,14 +61,15 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
 
               if (userId) {
 
-                console.log(latitude);
-                console.log(longitude);
                 const bestMatch = data.bestMatch;
                 const imageUrl = result.info.secure_url;
+
 
                 await supabase.rpc('insert_pokeplant', {
                   name: bestMatch, // Nom de la plante
                   image: imageUrl,
+                  latitude: latitude,
+                  longitude: longitude
                 });
               }
             });
