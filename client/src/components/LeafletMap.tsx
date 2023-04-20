@@ -130,7 +130,7 @@ export function LeafletMap() {
       ) : (
         <MapContainer
           center={center as L.LatLngExpression}
-          zoom={14}
+          zoom={6}
           scrollWheelZoom={false}
         >
           <TileLayer
