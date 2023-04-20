@@ -34,13 +34,13 @@ export function NavBar() {
                 <NavDropdown.Item href={RouterPath.battle}>
                   Battle
                 </NavDropdown.Item>
-                <NavDropdown.Item href={RouterPath.pokedex}>
+                <NavDropdown.Item href={RouterPath.pokedex} disabled>
                   Pokedex
                 </NavDropdown.Item>
                 <NavDropdown.Item href={RouterPath.garden}>
                   My garden
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/teams">Teams</NavDropdown.Item>
+                <NavDropdown.Item href="/teams" disabled>Teams</NavDropdown.Item>
               </NavDropdown>
             ) : null}
           </Nav>
@@ -66,7 +66,8 @@ export function NavBar() {
                 </>
               ) : (
                 <>
-                  <NavDropdown.Item href="/account">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href={RouterPath.account}>Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="/" disabled>Settings</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item
                     href="#"
