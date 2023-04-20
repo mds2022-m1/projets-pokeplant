@@ -9,16 +9,11 @@ export function AddPokePlant() {
         <h3>Capture</h3>
         <CloudinaryUploadWidget />
       </Row>
-      <Row className="text-center">
+      <Row className="text-center mt-5">
         <Card>
-          <Card.Img id="uploadedimage" variant="top" src="" />
+          <Card.Img id="uploadedimage" variant="top" src="" style={{ maxWidth: "20vw"}}/>
           <Card.Body>
-            <Card.Title id="plantName">Card Title</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">Go somewhere</Button>
+            <Card.Title id="plantName">Pokeplant added will appear here</Card.Title>
           </Card.Body>
         </Card>
       </Row>
