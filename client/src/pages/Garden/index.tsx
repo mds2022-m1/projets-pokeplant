@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../app/supabaseClient";
 import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
-import MovesCenteredModal from "./modalMoves"
+import MovesCenteredModal from "./modalMoves";
 import "./style.css";
+import { MovesModalButton } from "./movesModalButton";
 
 export default function Garden() {
   const [pokeplants, setPokeplants] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalShow, setModalShow] = useState(false);
 
   // Shorten the name of the pokeplant
   const shortenName = (name: string) => {
@@ -83,29 +83,20 @@ export default function Garden() {
                       />
                       <Card.Body>
                         <Card.Title>{shortenName(pokeplant.name)}</Card.Title>
-                          <p>HP: {pokeplant.hp}</p>
-                          <p>ATK: {pokeplant.atk}</p>
-                          <p>DEF: {pokeplant.def}</p>
-                          <p>ATK SPE: {pokeplant.atk_spe}</p>
-                          <p>SPD: {pokeplant.spd}</p>
-                          <p><strong> BASE STATS : {pokeplant.base_stats}</strong></p>
+                        <p>
+                          <b>TYPE :</b> {pokeplant.type}
+                        </p>
+                        <p>
+                          <strong> BASE STATS : {pokeplant.base_stats}</strong>
+                        </p>
                         <Button
                           variant="danger"
                           onClick={() => deletePokeplant(pokeplant.id)}
                         >
                           Release
                         </Button>
-                        <Button
-                          onClick={() => setModalShow(true)}
-                          variant="info"
-                        >
-                          Move Set
-                        </Button>
-
-      <MovesCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
+                        &nbsp;
+                        <MovesModalButton pokeplant={pokeplant}></MovesModalButton>
                       </Card.Body>
                     </Card>
                   </Col>
