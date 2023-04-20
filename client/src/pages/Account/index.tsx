@@ -11,6 +11,7 @@ import {
   Form,
   FormControl,
   Row,
+  Spinner,
 } from "react-bootstrap";
 import { updateProfileInformation } from "../../actions/user-api";
 import { useForm } from "react-hook-form";
@@ -63,7 +64,9 @@ const Account = () => {
             <Container>
               <Row>
                 <Col>
-                  <img
+                  {
+                    gender !== null ? (
+                      <img
                     src={
                       gender === "Female"
                         ? "https://gamepress.gg/pokemonmasters/sites/pokemonmasters/files/2020-11/ch0116_00_hikari_expose_256.ktx_.png"
@@ -71,6 +74,10 @@ const Account = () => {
                     }
                     alt="pfp"
                   ></img>
+                  ): (
+                    <><Spinner animation="grow" />Loading ...</>
+                  )
+                  }
                 </Col>
                 <Col>
                   <Form
@@ -83,7 +90,7 @@ const Account = () => {
 
                     <FloatingLabel
                       label="Email"
-                      controlId="floatingInput"
+                      // controlId="floatingInput"
                       className="mb-3"
                     >
                       <FormControl
@@ -96,7 +103,7 @@ const Account = () => {
 
                     <FloatingLabel
                       label="Name"
-                      controlId="floatingInput"
+                      // controlId="floatingInput"
                       className="mb-3"
                     >
                       <FormControl
