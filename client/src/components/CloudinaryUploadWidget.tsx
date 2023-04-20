@@ -157,22 +157,4 @@ async function insertPokePlantByGraph(
   }`)
 }
 
-// async function graphqltest(name: String, image: String, latitude: any, longitude: any) {
-//   axios.post("https://omtnzppzghmnxbwxmrha.supabase.co/graphql/v1?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tdG56cHB6Z2htbnhid3htcmhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzM4NTc3NjgsImV4cCI6MTk4OTQzMzc2OH0.iKL1RCvE5mpq3wbv1t1j5yCK3LQk3Q8iHK1I7vcSNw8", {
-//     query: `mutation insertPoPl{
-//       insertIntopokeplantCollection(objects: [
-//         {
-//           name: `+name+`,
-//           image: `+image+`,
-//           latitude: `+latitude+`,
-//           longitude: `+longitude+`
-//         }
-//       ]) {
-//         affectedCount
-//       }
-//     }
-//     `
-//   });
-// }
-
 export default CloudinaryUploadWidget;
