@@ -31,7 +31,6 @@ jobs:
       - name: Build project
         run: |
           echo Install dependencies
-          cd client/
           npm install
           echo Build to /build
           npm run build
