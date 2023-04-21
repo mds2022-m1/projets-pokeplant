@@ -96,41 +96,41 @@ export function getImageByType(type: string) {
   //simple switch statement to return the color of the type
   switch (type.toLowerCase()) {
     case "grass":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Logo_Type_Plante_Pokemon_EB.png/100px-Logo_Type_Plante_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/4/48/GrassIC_Tera.png/70px-GrassIC_Tera.png";
     case "fire":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Logo_Type_Feu_Pokemon_EB.png/100px-Logo_Type_Feu_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/e/eb/FireIC_Tera.png/70px-FireIC_Tera.png";
     case "water":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Logo_Type_Eau_Pokemon_EB.png/100px-Logo_Type_Eau_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/c/c0/WaterIC_Tera.png/70px-WaterIC_Tera.png";
     case "electric":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Logo_Type_%C3%89lectrik_Pokemon_EB.png/100px-Logo_Type_%C3%89lectrik_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/7/7b/ElectricIC_Tera.png/70px-ElectricIC_Tera.png";
     case "ice":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Logo_Type_Glace_Pokemon_EB.png/100px-Logo_Type_Glace_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/5/5f/IceIC_Tera.png/70px-IceIC_Tera.png";
     case "poison":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Logo_Type_Poison_Pokemon_EB.png/100px-Logo_Type_Poison_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/d/db/PoisonIC_Tera.png/70px-PoisonIC_Tera.png";
     case "ground":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Logo_Type_Sol_Pokemon_EB.png/100px-Logo_Type_Sol_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/2/22/GroundIC_Tera.png/70px-GroundIC_Tera.png";
     case "flying":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Logo_Type_Vol_Pokemon_EB.png/100px-Logo_Type_Vol_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/4/44/FlyingIC_Tera.png/70px-FlyingIC_Tera.png";
     case "psychic":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Logo_Type_Psy_Pokemon_EB.png/100px-Logo_Type_Psy_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/f/fd/PsychicIC_Tera.png/70px-PsychicIC_Tera.png";
     case "bug":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Logo_Type_Insecte_Pokemon_EB.png/100px-Logo_Type_Insecte_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/2/2e/BugIC_Tera.png/70px-BugIC_Tera.png";
     case "rock":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Logo_Type_Roche_Pokemon_EB.png/100px-Logo_Type_Roche_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/5/5f/RockIC_Tera.png/70px-RockIC_Tera.png";
     case "ghost":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Logo_Type_Spectre_Pokemon_EB.png/100px-Logo_Type_Spectre_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/0/04/GhostIC_Tera.png/70px-GhostIC_Tera.png";
     case "dragon":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Type_Dragon_Pokemon_EB.png/100px-Logo_Type_Dragon_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/6/65/DragonIC_Tera.png/70px-DragonIC_Tera.png";
     case "dark":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Logo_Type_Tenebres_Pokemon_EB.png/100px-Logo_Type_Tenebres_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/f/f2/DarkIC_Tera.png/70px-DarkIC_Tera.png";
     case "steel":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Logo_Type_Acier_Pokemon_EB.png/100px-Logo_Type_Acier_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/2/26/SteelIC_Tera.png/70px-SteelIC_Tera.png";
     case "fairy":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Logo_Type_F%C3%A9e_Pokemon_EB.png/100px-Logo_Type_F%C3%A9e_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/5/5d/FairyIC_Tera.png/70px-FairyIC_Tera.png";
     case "fighting":
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Logo_Type_Combat_Pokemon_EB.png/100px-Logo_Type_Combat_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/e/ea/FightingIC_Tera.png/70px-FightingIC_Tera.png";
     default:
-      return "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Logo_Type_Normal_Pokemon_EB.png/100px-Logo_Type_Normal_Pokemon_EB.png";
+      return "https://archives.bulbagarden.net/media/upload/thumb/9/9a/NormalIC_Tera.png/70px-NormalIC_Tera.png";
   }
 }
 
