@@ -32,6 +32,7 @@ jobs:
         run: |
           echo Install dependencies
           npm install
+          cd client/
           echo Build to /build
           npm run build
           cp build/index.html build/404.html
