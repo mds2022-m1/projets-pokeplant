@@ -1,8 +1,7 @@
-import { supabase } from "../app/supabaseClient";
+//import { supabase } from "../app/supabaseClient";
 import { useAppSelector } from "../app/hooks";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import axios from "axios";
 import graphql from "../graphql/graphql";
 declare global {
   interface Window {
@@ -96,7 +95,7 @@ const useCloudinaryUploadWidget = (cloudName: any, uploadPreset: any) => {
 };
 
 function CloudinaryUploadWidget() {
-  const { imageUrl, plantName } = useCloudinaryUploadWidget(
+ useCloudinaryUploadWidget(
     "df2mi0xff",
     "pokePlant"
   );
@@ -104,11 +103,11 @@ function CloudinaryUploadWidget() {
   return (
     <>
       <Button
-        variant="primary"
+        variant="success"
         id="upload_widget"
         className="cloudinary-button"
       >
-        Initiate Capture!
+        Capture!
       </Button>
     </>
   );
@@ -135,26 +134,6 @@ async function insertPokePlantByGraph(
     }
   }
   `);
-  await graphql(`query getMyPlants {
-    profilesCollection(orderBy: [{id: AscNullsFirst}] filter: {id: {eq: "${owner}"}}){
-      edges{
-        node{
-          id
-          username
-          gender
-          pokeplantCollection{
-            edges{
-              node{
-                name
-                latitude
-                longitude
-              }
-            }
-          }
-        }
-      }
-    }
-  }`)
 }
 
 export default CloudinaryUploadWidget;
