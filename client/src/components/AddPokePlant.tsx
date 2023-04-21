@@ -1,4 +1,4 @@
-import { Button, Card, Container, Row } from "react-bootstrap";
+import { Card, Container, Row } from "react-bootstrap";
 
 import CloudinaryUploadWidget from "./CloudinaryUploadWidget";
 
@@ -6,10 +6,9 @@ export function AddPokePlant() {
   return (
     <Container>
       <Row>
-        <h3>Capture</h3>
         <CloudinaryUploadWidget />
       </Row>
-      <Row className="text-center mt-5">
+      <Row className="text-center mt-3">
         <Card>
           <Card.Img id="uploadedimage" variant="top" src="" style={{ maxWidth: "20vw"}}/>
           <Card.Body>
