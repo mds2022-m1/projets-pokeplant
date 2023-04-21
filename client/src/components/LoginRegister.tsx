@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { supabase } from "../app/supabaseClient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Button,
@@ -20,6 +20,7 @@ export function LoginRegister() {
   const { register, handleSubmit } = useForm();
   const [registerConfirm, setRegisterConfirm] = useState(false);
   const [forgotPasswordConfirm, setForgotPasswordConfirm] = useState(false);
+  const baseUrl = window.location.origin;
 
   const [mode, setMode] = useState<"login" | "register" | "forgotPassword">(
     "login"
@@ -79,7 +80,7 @@ export function LoginRegister() {
         userData.email,
         {
           redirectTo:
-            process.env.REACT_APP_BASE_URL + RouterPath.passwordRecovery,
+            baseUrl + RouterPath.passwordRecovery,
         }
       );
       if (error) {
