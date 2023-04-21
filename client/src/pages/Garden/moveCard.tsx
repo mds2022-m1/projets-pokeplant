@@ -2,8 +2,12 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { useEffect } from "react";
 
 function MoveCard(props: any) {
+  useEffect(() => {
+    console.log(props.moveSet);
+  }, [props.moveSet]);
   return (
     <>
       <Container>
@@ -34,6 +38,7 @@ function MoveCard(props: any) {
                     <p><b>PP :</b> {variant.power_point}</p>
                     <p><b>Power :</b> {variant.power}</p>
                     <p><b>Accuracy :</b> {variant.accuracy}%</p>
+                    <p><b>Nature :</b> {variant.nature ? "Physical" : "Special"}</p>
                   </div>
                 </Card.Body>
               </Card>
