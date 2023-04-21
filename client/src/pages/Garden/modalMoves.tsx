@@ -7,14 +7,15 @@ import { supabase } from "../../app/supabaseClient";
 
 export default function MovesCenteredModal(props: any) {
   const [moves, setMoves] = useState(Array<any>);
+  async function fetchMoves() {
+    const moves = await getPokeplantMoves(props.pokeplant.id);
+    setMoves(moves as any);
+    console.log(moves);
+  }
 
   useEffect(() => {
-    async function fetchMoves() {
-      const moves = await getPokeplantMoves(props.pokeplant.id);
-      setMoves(moves as any);
-      console.log(moves);
-    }
     fetchMoves();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
