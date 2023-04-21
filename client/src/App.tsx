@@ -27,6 +27,7 @@ import {
 import { getProfileInformation } from "./actions/user-api";
 import { supabase } from "./app/supabaseClient";
 import { passwordRecoveryUpdated } from "./features/session-slice";
+import Pokedex from "./pages/Pokedex";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -61,6 +62,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path={RouterPath.home} element={<Home />} />
           <Route path={RouterPath.map} element={<Map />} />
+          <Route path={RouterPath.pokedex} element={<Pokedex/>} />
           <Route path={RouterPath.login} element={<Login />} />
           <Route
             path={RouterPath.passwordRecovery}

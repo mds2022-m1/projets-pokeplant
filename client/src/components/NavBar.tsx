@@ -34,7 +34,7 @@ export function NavBar() {
                 <NavDropdown.Item href={RouterPath.battle}>
                   Battle
                 </NavDropdown.Item>
-                <NavDropdown.Item href={RouterPath.pokedex} disabled>
+                <NavDropdown.Item href={RouterPath.pokedex}>
                   Pokedex
                 </NavDropdown.Item>
                 <NavDropdown.Item href={RouterPath.garden}>
