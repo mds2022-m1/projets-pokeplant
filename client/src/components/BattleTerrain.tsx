@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { supabase } from "../app/supabaseClient";
-import { getColorByType, getImageByType } from "../pages/Garden/moveCard";
+import MoveCard from "../pages/Garden/moveCard";
+import { getPokeplantMoves } from "../pages/Garden/modalMoves";
 
 export function BattleTerrain() {
   const [myPokeplants, setMyPokeplants] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedPokeplant, setSelectedPokeplant] = useState<any>(null);
   const [moves, setMoves] = useState<any[]>([]);
+  const [show, setShow] = useState(false);
 
   async function getPokeplants() {
-    setIsLoading(true);
     try {
       const { data, error } = await supabase.rpc("get_user_pokeplants");
       if (error) {
@@ -20,10 +20,19 @@ export function BattleTerrain() {
       }
     } catch (error: any) {
       console.error(error.message);
-    } finally {
-      setIsLoading(false);
     }
   }
+
+  async function getMoves(id: number) {
+    const data = await getPokeplantMoves(id);
+    if (data) {
+      setMoves(data);
+      setShow(true);
+    }
+    
+  }
+
+
 
   useEffect(() => {
     getPokeplants();
@@ -31,6 +40,9 @@ export function BattleTerrain() {
 
   useEffect(() => {
     console.log(selectedPokeplant);
+    if (selectedPokeplant) {
+      getMoves(selectedPokeplant.id);
+    }
   }, [selectedPokeplant]);
 
   return (
@@ -56,26 +68,28 @@ export function BattleTerrain() {
             {!selectedPokeplant ? (
               myPokeplants.map((pokeplant) => {
                 return (
-                  <Col md={3} key={pokeplant.id}>
-                    <Card>
-                      <Card.Img variant="top" src={pokeplant.image} />
-                      <Card.Body className="text-center">
-                        <Card.Title>{pokeplant.name}</Card.Title>
-                        <p>
-                          <b>Type : </b> {pokeplant.type}
-                        </p>
-                        <Button
-                          variant="success"
-                          onClick={() => setSelectedPokeplant(pokeplant)}
-                        >
-                          Select
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                  <>
+                    <Col md={3} key={pokeplant.id}>
+                      <Card>
+                        <Card.Img variant="top" src={pokeplant.image} />
+                        <Card.Body className="text-center">
+                          <Card.Title>{pokeplant.name}</Card.Title>
+                          <p>
+                            <b>Type : </b> {pokeplant.type}
+                          </p>
+                          <Button
+                            variant="success"
+                            onClick={() => setSelectedPokeplant(pokeplant)}
+                          >
+                            Select
+                          </Button>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </>
                 );
               })
-            ) : (
+            ) : show ? (
               <>
                 <Col md={3}>
                   <Card>
@@ -95,14 +109,32 @@ export function BattleTerrain() {
                   </Card>
                 </Col>
                 <Col md={9}>
-                  <Card>
-                    <Row>
-                      
-                    </Row>
-                  </Card>
+                  <MoveCard
+                    moveSet={moves}
+                  ></MoveCard>
                 </Col>
               </>
-            )}
+            ) : null}
+            {myPokeplants.length === 0 ? (
+              <Col md={12}>
+                <Card>
+                  <Card.Body className="text-center">
+                    <Card.Title>
+                      Hey! You can't battle without Pokeplants.
+                    </Card.Title>
+                    <img
+                      src="https://www.pokepedia.fr/images/f/f6/Goyah-NB.png"
+                      alt="goyah"
+                      width={180}
+                      height={300}
+                    ></img>
+                    <p>
+                      <b>Go to the garden to catch some pokeplants!</b>
+                    </p>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ) : null}
           </Row>
         </Container>
       </Container>
