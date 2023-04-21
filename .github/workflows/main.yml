@@ -31,8 +31,8 @@ jobs:
       - name: Build project
         run: |
           echo Install dependencies
-          npm install
           cd client/
+          npm install
           echo Build to /build
           npm run build
           cp build/index.html build/404.html
