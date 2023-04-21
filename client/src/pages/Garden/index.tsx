@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../app/supabaseClient";
-import { Button, Card, Col, Container, Row, Modal } from "react-bootstrap";
-import MovesCenteredModal from "./modalMoves";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import "./style.css";
 import { MovesModalButton } from "./movesModalButton";
 
@@ -96,7 +95,9 @@ export default function Garden() {
                           Release
                         </Button>
                         &nbsp;
-                        <MovesModalButton pokeplant={pokeplant}></MovesModalButton>
+                        <MovesModalButton
+                          pokeplant={pokeplant}
+                        ></MovesModalButton>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -109,6 +110,10 @@ export default function Garden() {
                     <h1 className="text-danger">Your garden is empty</h1>
                   </Card.Header>
                   <Card.Body>
+                    <img
+                      src="https://archives.bulbagarden.net/media/upload/thumb/8/8b/Red_Green_Prof_Oak.png/150px-Red_Green_Prof_Oak.png"
+                      alt="oak"
+                    ></img>
                     <h3 className="text-dark">
                       It's dangerous to walk in the tall grass alone. Please
                       capture a pokeplant!
