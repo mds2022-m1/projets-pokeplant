@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# How to use
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Prerequisites
+- Node.js
+- npm
+- git
 
-## Available Scripts
+## Installation
+First clone the repository
 
-In the project directory, you can run:
+Then do the following:
+```bash
+cd <path to repository>
+npm install
+```
 
-### `npm start`
+## Usage
+Start the local dev environnement with the following command:
+```bash
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Online demo
+You can find an online demo without installing anything locally [here](https://pocketplant.fr/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Implemented
+- Capture a pokeplant using your webcam or by uploading a picture
+- Randomly generated pokeplants types, stats and skills
+- Get the name of the pokeplant and its description and stats
+- Get the location of the pokeplants on a map
+- See your captured pokeplants
+- Pokedex with all the pokeplants captured by everyone
+- Release a captured pokeplant
+- Login with Google
+- Edit your profile
+- Room system with real-time chat
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### In progress
+- Real-time turn based battle system
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Used
+- ReactJs
+- React Bootstrap
+- TypeScript
+- Redux (Redux thunk)
+- Supabase
+- Postgres
+- GraphQL
+- Cloudinary
+- Leaflet Map
+- ONETSolutions (for the domain name)
+- Cloudflare (Security and SSL Certification)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Future tech improvements
+- Using StyledComponent instead of pure css and Bootstrap
+- Better file naming and tree organization (
+    ```
+    Components
+        ComponentName
+            - index.tsx
+    
+    Pages
+        PageName
+            -index.tsx
+    ```
+etc.
+)
 
-### `npm run eject`
+## Potential issues
+- Registering with mail and password works but sometime the confirmation mail appears in the spam folder or takes some time to arrive. If you don't want to wait you can use the Google login but you will have to edit your profile to add a username. 
+- Choosing a gender using google login isn't supported yet.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Access to supabase
+If you want to check inside the supabase instance, please send me an email at 
+quangminhjean@gmail.com
+and I will send you an invite.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
