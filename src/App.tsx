@@ -85,6 +85,10 @@ function App() {
   // If Session changes, fetch user information
   useEffect(() => {
     if (session) {
+      // Send notification logged in
+      new Notification("Logged in", {
+        body: "You are now logged in",
+      });
       dispatch(getProfileInformation(session));
       dispatch(getResetPasswordStatus());
     }
