@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "serviceWorker": {
+    "src": "./src/service-worker.ts"
+  }
 }
