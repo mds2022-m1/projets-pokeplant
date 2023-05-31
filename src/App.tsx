@@ -46,6 +46,42 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // ask for notification permission, the quick and dirty way
+    Notification.requestPermission();
+    let serviceWorker: ServiceWorkerRegistration | null = null;
+
+    const registerServiceWorker = async () => {
+      if ('serviceWorker' in navigator) {
+        try {
+          const registration = await navigator.serviceWorker.register('service-worker.js');
+          console.log('Service worker registered');
+          serviceWorker = registration;
+        } catch (error) {
+          console.log('Failed to register service worker:', error);
+        }
+      }
+    };
+
+    const unregisterServiceWorker = async () => {
+      if (serviceWorker) {
+        try {
+          await serviceWorker.unregister();
+          console.log('Service worker unregistered');
+        } catch (error) {
+          console.log('Failed to unregister service worker:', error);
+        }
+      }
+    };
+
+    registerServiceWorker();
+
+    // Unregister service worker when the component is unmounted
+    return () => {
+      unregisterServiceWorker();
+    };
+  }, []);
+
   // If Session changes, fetch user information
   useEffect(() => {
     if (session) {
