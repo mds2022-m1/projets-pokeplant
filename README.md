@@ -5,6 +5,7 @@
 - npm
 - git
 
+**IMPORTANT : Due to the implementation of the web notification api, the app will crash on mobile browsers. Please use a laptop/pc browser version.**
 ## Installation
 First clone the repository
 
